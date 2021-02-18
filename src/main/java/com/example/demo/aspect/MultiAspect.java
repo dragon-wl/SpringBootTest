@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
  * @author wanglong
  * @time 2021/2/18/
  * @ref
+ *
+ * 1、不同的切面类的执行顺序可以使用@Order(1)来确定，数字越小，越先执行
  */
 @Aspect
 @Component
@@ -38,7 +40,7 @@ public class MultiAspect {
 //
 //    }
 
-    @Before("verifyUser()")
+    @Before("execution(public * com.example.demo.controller.*.*(..))")
     public void print(){
         log.info("---- AOP 01 ｜ Before | 拦截Controller包下所有类中的所有方法(不含子包)----");
     }
@@ -78,33 +80,33 @@ public class MultiAspect {
         log.info("--- AOP 07｜ After | 拦截Seller类中的方法----");
     }
 
-    @After("verifyAllCallFunc()")
-    public void printAllCallFuncAfter(){
-        log.info("--- AOP 08｜ After | 拦截以call开头的任意方法----");
-    }
+//    @After("verifyAllCallFunc()")
+//    public void printAllCallFuncAfter(){
+//        log.info("--- AOP 08｜ After | 拦截以call开头的任意方法----");
+//    }
 
 
-    @Around("verifyUser()")
-    public Object printAround(ProceedingJoinPoint pjp){
-        log.info("---- AOP ｜ Around 09 | 拦截Controller包下所有类中的所有方法(不含子包)----");
-        return null;
-    }
-
-    @Around("verifyAllControllerFunc()")
-    public Object printAllControllerFuncAround(){
-        log.info("---- AOP ｜ Around 10 | 拦截Controller包下所有类中的所有方法(含子包)----");
-        return null;
-    }
-
-    @Around("verifySeller()")
-    public Object printLineAround(){
-        log.info("--- AOP ｜ Around 11 | 拦截Seller类中的方法----");
-        return null;
-    }
-
-    @Around("verifyAllCallFunc()")
-    public Object printAllCallFuncAround(){
-        log.info("--- AOP ｜ Around 12 | 拦截以call开头的任意方法----");
-        return null;
-    }
+//    @Around("verifyUser()")
+//    public Object printAround(ProceedingJoinPoint pjp){
+//        log.info("---- AOP ｜ Around 09 | 拦截Controller包下所有类中的所有方法(不含子包)----");
+//        return null;
+//    }
+//
+//    @Around("verifyAllControllerFunc()")
+//    public Object printAllControllerFuncAround(){
+//        log.info("---- AOP ｜ Around 10 | 拦截Controller包下所有类中的所有方法(含子包)----");
+//        return null;
+//    }
+//
+//    @Around("verifySeller()")
+//    public Object printLineAround(){
+//        log.info("--- AOP ｜ Around 11 | 拦截Seller类中的方法----");
+//        return null;
+//    }
+//
+//    @Around("verifyAllCallFunc()")
+//    public Object printAllCallFuncAround(){
+//        log.info("--- AOP ｜ Around 12 | 拦截以call开头的任意方法----");
+//        return null;
+//    }
 }
